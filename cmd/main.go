@@ -7,7 +7,7 @@ import (
 
 func main() {
 	//repository := &student.DataTest{}
-	repository := storage.NewStorage()
-	app := &student.App{repository}
+	//repository := storage.NewStorage()
+	app := &student.App{storage.NewStorage()}
 	app.Run()
 }

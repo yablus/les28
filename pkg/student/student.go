@@ -26,12 +26,12 @@ type Data interface {
 	// get
 	// возвращает:
 	// карту студентов.
-	Get() map[string]Student
+	Get() map[string]*Student
 }
 
 type DataTest struct{}
 
-func (test *DataTest) Put(std Student) bool {
+func (test *DataTest) Put(std *Student) bool {
 	return true
 }
 func (test *DataTest) Get() map[string]*Student {
@@ -42,7 +42,7 @@ func (test *DataTest) Get() map[string]*Student {
 }
 
 type App struct {
-	repository Data
+	Repository Data
 }
 
 func (a *App) Run() {
@@ -58,7 +58,7 @@ func (a *App) Run() {
 
 func (a *App) printStudents() {
 	fmt.Println("Студенты из хранилища:")
-	for _, v := range a.repository.Get() {
+	for _, v := range a.Repository.Get() {
 		fmt.Printf("%s %d %d\n", v.Name, v.Age, v.Grade)
 	}
 }
@@ -103,7 +103,7 @@ func (a *App) inputStudent() (*Student, bool) {
 
 func (a *App) saveStudent(std *Student) {
 	var msg string
-	if ok := a.repository.Put(std); ok {
+	if ok := a.Repository.Put(std); ok {
 		msg = "Студент %s успешно добавлен\n"
 	} else {
 		msg = "Студент %s уже есть в базе\n"
